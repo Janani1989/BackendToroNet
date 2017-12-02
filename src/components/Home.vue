@@ -19,9 +19,9 @@
     <hr>
   </div>
   <div class="container" v-else>
-    <h4>Click the bull to login.</h4>
+    <h4>Click below to login.</h4>
     <div >
-    <a href="/login"><img src="https://i.imgur.com/bGlcYmy.png"/></a> 
+    <a href="/login"><img src="https://qph.ec.quoracdn.net/main-qimg-0102f6e770d2ce1f45bd7066524b8f70" alt="Avatar" style="width:60%" class="w3-circle w3-margin-top"></a> 
     </div>
   </div>
 </template>
@@ -34,10 +34,14 @@ export default {
       e.preventDefault()
       this.$validator.validateAll().then((result) => {
         if (result) {
+          const newPost = {
+            userId: this.$store.state.user.id,
+            title: this.title,
+            body: this.body,
+            createdOn: new Date
+          }
           document.querySelector('#post').submit()
-          this.$router.push('/')
-          // Do we want to store posts in the VueX store?
-          // this.$store.dispatch('addPost', this.$store.state.posts)
+         
           return
         }
       })

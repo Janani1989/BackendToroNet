@@ -1,13 +1,16 @@
+
 import * as types from './mutation-types'
 import axios from 'axios'
 
 export const getUser = ({commit}) => {
   axios.get('/isauth')
   .then(function (response) {
+    console.log('Retrieved user data: ', response.data);
     commit(types.GET_USER, response.data)
   })
   .catch(function (error) {
-  })
+    console.log(error);
+  });
 }
 
 export const getCount = ({commit}) => {
@@ -70,31 +73,41 @@ export const login = ({commit}) => {
     commit(types.LOGIN, response.data)
   })
   .catch(function (error) {
-  })
+    console.log(error);
+  });
 }
 
 export const logout = ({commit}) => {
   commit(types.LOGOUT)
 }
 
+export const getPosts = ({commit}) => {
+  axios.get('/posts')
+  .then(function (response) {
+    console.log('Retrieved posts: ', response.data);
+    commit(types.GET_POSTS, response.data)
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
 export const addPost = ({commit}, postPayload) => {
-  fetch(`/posts`, {
+  return new Promise((resolve, reject) => {
+  fetch(`/posts/create`, {
     method: 'POST',
+    redirect: 'follow',
     headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(postPayload)
   })
-  .then(response => response.json())
-  .then(json => commit(types.ADD_POST, json))
-}
-
-export const getPosts = ({commit}) => {
-  axios.get('/posts')
-  .then(function (response) {
-    commit(types.GET_POSTS, response.data)
+  .then(res => {
+    resolve(res)
   })
-  .catch(function (error) {
+  .then(err => {
+    reject(err)
   })
+})
 }

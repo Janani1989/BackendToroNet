@@ -109,12 +109,14 @@ module.exports = (() => {
     res.json({})       
   })
   
+  /*Endpoint to create a post*/
   router.post('/create', checkAuth, (req, res) => {
     const newPost = new Post({
       userId: req.user.id,
       title: req.body.title,
       body: req.body.body,
-      createdOn: new Date
+      createdOn: new Date,
+      comments: [{commentor:null,content:null}]
     })
     console.log("Post created.")
     Post.create(newPost, postsProjection, (err) => {

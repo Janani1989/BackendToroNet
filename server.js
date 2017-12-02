@@ -10,7 +10,8 @@ const express = require('express'),
       auth = require('./server/routes/auth'),
       index = require('./server/routes/index'),
       users = require('./server/routes/users'),
-      posts = require('./server/routes/posts')
+      posts = require('./server/routes/posts'),
+      admin = require('./server/routes/admin'),
       MongoStore = require('connect-mongo')(session)
 
 require('dotenv').load();
@@ -42,6 +43,7 @@ app.use('/users', users),
 app.use('/auth', auth),
 app.use('/count', count),
 app.use('/posts', posts),
+app.use('/admin', admin)
 app.use('/', index)
 
 /* Catch all errors and log them. */

@@ -19,7 +19,11 @@ var Post = new Schema({
   createdOn:{
     type: Date,
     required: true
-  }
+  },
+  comments:[{
+    commentor: String,
+    content: String
+  }]
 })
 
 module.exports = mongoose.model('Post', Post)

@@ -1,6 +1,7 @@
 const express = require('express'),
       flash = require('req-flash'),
-      User = require('../models/user')
+      User = require('../models/user'),
+      bcrypt = require('bcryptjs')
 
 /* apoc require statement must always go after the explicit loading of the 
  * .env file */
@@ -12,19 +13,7 @@ module.exports = (() => {
 
   const router = express.Router()
   
-  /* User listing endpoint. */
-  router.get('/list/all', (req,res) => {
-    User.find({}, function(err,users) {
-      if (err) throw err
-      else {
-        const userMap = {}
-          users.forEach(function(user) {
-            userMap[user._id] = user
-          })
-        res.send(JSON.stringify(userMap))         
-      }
-    })
-  })
+  
 
 
   /* Endpoint to provide partial list of users based on keyword search. */
