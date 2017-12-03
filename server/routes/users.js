@@ -7,7 +7,7 @@ const express = require('express'),
  * .env file */
 require('dotenv').load()
 const apoc = require('apoc')
-
+var checkAuth = require('./index.js').checkAuth
 module.exports = (() => {
   'use strict'
 
@@ -17,13 +17,13 @@ module.exports = (() => {
 
 
   /* Endpoint to provide partial list of users based on keyword search. */
-  router.get('/list/:keyword', (req,res) => {
-    User.find({username: {$regex: req.params.keyword}}, function(err, users) {
+  router.get('/list/:keyword',(req,res) => {
+    User.find({username: {$regex: req.params.keyword}},{_id:0,displayName:1,username:1,email:1,}, function(err, users) {
       if (err) throw err
       const userMap = {}
   
       users.forEach(function(user) {
-        userMap[user._id] = user
+        userMap[user.email] = user
       })
 
       res.send(JSON.stringify(userMap))
