@@ -50,12 +50,14 @@ export default {
       e.preventDefault()
       this.$validator.validateAll().then((result) => {
         if (result) {
+          
           const newUser = {
             displayName: this.displayName,
             username: this.username,
             email: this.email,
             password: this.password,
-            createdOn: new Date
+            createdOn: new Date,
+            isAdmin: false
           }
           this.$store.dispatch('registerUser', newUser).then(res => {
             if (res.status == 409) {

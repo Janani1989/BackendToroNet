@@ -32,7 +32,7 @@ module.exports = (() => {
   
 
   /* User registration API endpoint. */
-  router.post('/register', (req, res) => {
+  router.post('/register/', (req, res) => {
     /* Hash User password first and then create User object to store in DB on 
      * hash success */
     bcrypt.hash(req.body.password, 10, function(err, hash) {
@@ -40,6 +40,7 @@ module.exports = (() => {
         res.status(499).send()
       }
       else {
+        
         const newUser = new User({
           displayName: req.body.displayName,
           email: req.body.email,

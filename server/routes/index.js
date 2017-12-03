@@ -27,5 +27,16 @@ const checkAuth = (req, res, next) => {
   }
 }
 
+//Use this function for admin only endpoints
+const checkAdmin = (req,res,next) => {
+  if(req.user.isAdmin){
+    next()
+  }
+  else{
+    res.status(400).json({"message":"Needs admin Privilege"});
+  }
+}
+
 module.exports = router 
 module.exports.checkAuth = checkAuth
+module.exports.checkAdmin = checkAdmin

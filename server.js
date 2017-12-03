@@ -39,11 +39,11 @@ app.use(cookieParser('test-secret'))
 app.use(passport.initialize())
 app.use(passport.session())
 
+app.use('/admin', admin),
 app.use('/users', users),
 app.use('/auth', auth),
 app.use('/count', count),
 app.use('/posts', posts),
-app.use('/admin', admin)
 app.use('/', index)
 
 /* Catch all errors and log them. */

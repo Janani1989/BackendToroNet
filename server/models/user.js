@@ -25,6 +25,10 @@ var User = new Schema({
   createdOn: {
     type: Date,
     required: true
+  },
+  isAdmin:{
+    type: Boolean,
+    default: false
   }
 })
 
