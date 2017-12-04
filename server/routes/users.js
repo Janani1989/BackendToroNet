@@ -84,6 +84,8 @@ module.exports = (() => {
     })
   })
 
+
+
   /* Reset password for a user. */
   router.post('/reset', function(req, res){
     const password = req.body.password
@@ -100,28 +102,29 @@ module.exports = (() => {
     } else {
       res.redirect('/login')
     }
-  })
+  });
 
-  /* Update single user. */
-  router.put('/update/:id', (req, res, next) => {
-    User.update(User.findById(req.params.id) , req.body, (err, result) => {        
-      // if the user is not in the database
-      if (err) {
-        console.log("User record doesn't exist!")
-        res.status(204).send()
-      }      
-      else {
-        // TODO: Update the  user in the database.
-        res.status(200).send()
-      }
-    })
-  })  
+   /* Update single user. */
+router.put('/update/:id', (req, res, next) => {
+  User.update(User.findById(req.params.id) , req.body, (err, result) => {        
+    // if the user is not in the database
+    if (err) {
+      console.log("User record doesn't exist!")
+      res.status(204).send()
+    }      
+    else {
+      // TODO: Update the  user in the database.
+      res.status(200).send()
+    }
+  })
+})    
 
   /* Endpoint to read a single user. */
   router.get('/:id',(req,res)=> {
     User.find(User.findById(req.params.id),(err,user)=> {
       if (err) {
         // TODO: Implement error?
+        throw err
       }
       else {
         res.send(JSON.stringify(user))
